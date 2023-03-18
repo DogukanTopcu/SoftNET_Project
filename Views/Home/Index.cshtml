@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNetCore.Http;
+
+@model IEnumerable<SoftNET_Project.Models.ProductSolded>
+
+@{
+    ViewData["Title"] = "Home Page";
+    int totalSales = 0;
+    int totalIncome = 0;
+}
+
+
+
+
+@foreach (var i in Model)
+{
+    totalSales += i.sales;
+    totalIncome += i.income;
+}
+
+
+<div class="card mb-4 mt-2 text-center">
+    <div class="card-body text-center">
+        <h1>SoftNET Dashboard</h1>
+    </div>
+</div>
+
+<div class="card-header mb-4">
+    <h4><span class="font-italic font-weight-bold">@totalSales</span> products was sold</h4>
+    <h4>Total Income: <span class="font-italic font-weight-bold">@totalIncome TL</span></h4>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Product Reports
+    </div>
+    <div class="card-body">
+        <table id="sample_table" class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Product Name
+                    </th>
+                    <th>
+                        Total Sales
+                    </th>
+                    <th>
+                        Total Income
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Products" asp-action="Details" asp-route-id="@item.productId">@Html.DisplayFor(modelItem => item.productName)</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.sales)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.income) TL
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+

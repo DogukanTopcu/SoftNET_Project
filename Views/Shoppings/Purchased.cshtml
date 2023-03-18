@@ -1,0 +1,60 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Purchased";
+}
+
+<div class="card mb-4 mt-2">
+    <div class="card-body">
+        <h1>Purchased</h1>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Your Purchaseds
+    </div>
+    <div class="card-body">
+        <table id="sample_table" class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Product Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Barcode
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Purchaseds)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">@item.ProductName</a>
+                        </td>
+                        <td>
+                            @item.Price
+                            TL
+                        </td>
+                        <td>
+                            @item.Category
+                        </td>
+                        <td>
+                            @item.Barcode
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<SoftNET_Project.Models.User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="card mb-4 mt-2">
+    <div class="card-body">
+        <h1>All Users</h1>
+    </div>
+</div>
+
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary">Create New User</a>
+</p>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fa-solid fa-users"></i>
+        Users Table
+    </div>
+    <div class="card-body">
+        <table class="table" id="sample_table">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Username
+                    </th>
+                    <th>
+                        Role
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NickName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Role)
+                        </td>
+                        <td>
+                            <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                            <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.ID">Details</a>
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<div class="mb-4">
+    <a class="btn btn-success" href="/Users/ExportExcelUserList">Excel Export</a>
+</div>

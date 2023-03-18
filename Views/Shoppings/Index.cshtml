@@ -1,0 +1,112 @@
+﻿@model IEnumerable<SoftNET_Project.Models.Product>
+
+@{
+
+    ViewData["Title"] = "Shopping";
+}
+<div class="card mb-4 mt-2">
+    <div class="card-body">
+        <h1>SoftNET Market</h1>
+    </div>
+</div>
+
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Products
+    </div>
+    <div class="card-body">
+        <table id="sample_table" class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        Product
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @{
+                                bool isWishMine = false;
+                            }
+                            @foreach (var i in ViewBag.Wishlist)
+                            {
+                                if (i.Id == item.Id)
+                                {
+                                    isWishMine = true;
+                                    break;
+                                }
+                            }
+                            @if (isWishMine)
+                            {
+                                <form asp-action="RemoveWish" asp-route-id="@item.Id" method="post">
+                                    <button class="btn btn-secondary"><i class="fa-solid fa-heart-crack"></i></button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form asp-action="AddWish" asp-route-id="@item.Id" method="post">
+                                    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-heart"></i></button>
+                                </form>
+                            }
+                        </td>
+                        <td>
+                            <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.ProductName)</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price) TL
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category)
+                        </td>
+                        <td>
+                            @{
+                                bool isCartMine = false;
+                            }
+                            @foreach (var i in ViewBag.Carts)
+                            {
+                                if (i.Id == item.Id)
+                                {
+                                    isCartMine = true;
+                                    break;
+                                }
+                            }
+                            @if (isCartMine)
+                            {
+                                <form class="ml-2" asp-action="RemoveCart" asp-route-id="@item.Id" method="post">
+                                    <button class="btn btn-secondary">Remove from Carts</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form class="ml-2" asp-action="AddCart" asp-route-id="@item.Id" method="post">
+                                    <button type="submit" class="btn btn-success">Add to Carts</button>
+                                </form>
+                            }
+
+                                
+                                @*<a class="btn btn-success" asp-controller="Shoppings" asp-action="AddWish" asp-route-id="@item.Id" asp-route-type="Cart" >Buy</a>
+                            <a class="btn btn-danger" asp-controller="Shoppings" asp-action="AddWish" asp-route-id="@item.Id" asp-route-type="Wishlist"><i class="fa-solid fa-heart"></i></a>*@
+                            
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+

@@ -1,0 +1,112 @@
+﻿@model SoftNET_Project.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="card mb-4 mt-2">
+    <div class="card-body">
+        <h1>Product Details</h1>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fa-solid fa-boxes-stacked"></i>
+        <span class="font-weight-bold">Product: </span>@Model.ProductName
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-2">
+                Product Name
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ProductName)
+            </dd>
+            <dt class="col-sm-2">
+                Barcode
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Barcode)
+            </dd>
+            <dt class="col-sm-2">
+                Count
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Count)
+            </dd>
+            <dt class="col-sm-2">
+                Price
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+            <dt class="col-sm-2">
+                Category
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Category)
+            </dd>
+
+            @if (User.Identity.AuthenticationType == "LoginAdmin")
+            {
+
+
+                <dt class="col-sm-2">
+                    Cartings
+                </dt>
+                <dd class="col-sm-10">
+                    @ViewBag.ProductsCarts
+                    @if (ViewBag.ProductsCarts > 1)
+                    {
+                        <span>users</span>
+                    }
+                    else
+                    {
+                        <span>user</span>
+                    }
+                    add this product to their carts.
+                </dd>
+                <dt class="col-sm-2">
+                    Wishlists
+                </dt>
+                <dd class="col-sm-10">
+                    @ViewBag.ProductsWishlists
+                    @if (ViewBag.ProductsWishlists > 1)
+                    {
+                        <span>users</span>
+                    }
+                    else
+                    {
+                        <span>user</span>
+                    }
+                    add this product to their wishlist.
+                </dd>
+            }
+
+            <dt class="col-sm-2">
+                Purchaseds
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.ProductsPurchaseds
+                @if (ViewBag.ProductsPurchaseds > 1)
+                {
+                    <span>users</span>
+                }
+                else
+                {
+                    <span>user</span>
+                }
+                buy this product.
+            </dd>
+        </dl>
+    </div>
+</div>
+
+@if (User.Identity.AuthenticationType == "LoginAdmin")
+{
+    <div>
+        <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        <a class="btn btn-warning" asp-action="Index"><i class="fa-sharp fa-solid fa-arrow-left"></i>Back to List</a>
+    </div>
+}

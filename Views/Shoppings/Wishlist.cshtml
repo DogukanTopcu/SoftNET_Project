@@ -1,0 +1,58 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Wishlist";
+}
+
+<div class="card mb-4 mt-2">
+    <div class="card-body">
+        <h1>Wishlist</h1>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Your Wishlist
+    </div>
+    <div class="card-body">
+        <table id="sample_table" class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Product Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Wishlist)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">@item.ProductName</a>
+                        </td>
+                        <td>
+                            @item.Price
+                            TL
+                        </td>
+                        <td>
+                            @item.Category
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<form asp-action="RemoveAllWishes" method="post" class="mb-4 d-flex justify-content-end">
+    <button type="submit" class="btn btn-danger">Remove All Wishes</button>
+</form>
